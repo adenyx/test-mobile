@@ -10,7 +10,13 @@ export const RootNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="main" component={MainScreen} />
+        <Stack.Screen
+          name="main"
+          options={{
+            title: 'Test Project',
+          }}
+          component={MainScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
