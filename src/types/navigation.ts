@@ -1,4 +1,16 @@
+import { FilterAndSortListModel, FilterAndSortOptionItemModel } from '../types'
+
 export type RootNavigatorParamsList = {
-  main: undefined
-  filterAndSort: undefined
+  main:
+    | {
+        selectedFilters: FilterAndSortListModel
+        selectedSortOption: FilterAndSortOptionItemModel | null
+      }
+    | undefined
+  filterAndSort:
+    | {
+        selectedFilters: FilterAndSortListModel
+        selectedSortOption: FilterAndSortOptionItemModel | null
+      }
+    | undefined
 }

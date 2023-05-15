@@ -12,7 +12,7 @@ import {
 } from '../../types'
 
 export const FilterAndSortScreen = (props: IProps) => {
-  const { navigation } = props
+  const { navigation, route } = props
   const [selectedFilters, setSelectedFilters] =
     useState<FilterAndSortListModel>([])
   const [selectedSortOption, setSelectedSortOption] =
@@ -64,13 +64,24 @@ export const FilterAndSortScreen = (props: IProps) => {
     )
   }, [])
 
-  const handleOnSaveFiltersAndSortingOptions = useCallback(() => {}, [])
+  const handleOnSaveFiltersAndSortingOptions = useCallback(() => {
+    navigation.navigate('main', {
+      selectedFilters,
+      selectedSortOption,
+    })
+  }, [navigation, selectedFilters, selectedSortOption])
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: renderRightHeaderButton,
     })
-  }, [navigation, renderRightHeaderButton])
+    if (route.params?.selectedFilters) {
+      setSelectedFilters(route.params.selectedFilters)
+    }
+    if (route.params?.selectedSortOption) {
+      setSelectedSortOption(route.params.selectedSortOption)
+    }
+  }, [navigation, renderRightHeaderButton, route.params])
 
   return (
     <View style={styles.container}>
@@ -95,7 +106,7 @@ export const FilterAndSortScreen = (props: IProps) => {
         ))}
         {FILTER_OPTIONS.map((filter) => (
           <View key={filter.value} style={styles.filterAndSortItemContainer}>
-            <Text style={styles.title}>{filter.label}</Text>
+            <Text style={styles.title}>Filter Games by {filter.label}</Text>
             <View style={styles.filterAndSortItems}>
               {filter.options.map((option) => {
                 const isSelected = Boolean(
@@ -129,7 +140,7 @@ export const FilterAndSortScreen = (props: IProps) => {
             : styles.saveButtonBackground,
         ]}
       >
-        <Text style={styles.saveButtonTitle}>Save</Text>
+        <Text style={styles.saveButtonTitle}>Apply</Text>
       </TouchableOpacity>
     </View>
   )

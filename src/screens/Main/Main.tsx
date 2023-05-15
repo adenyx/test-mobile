@@ -10,37 +10,55 @@ import {
 import { IProps } from './types'
 
 import { fetchGamesList } from '../../core'
-import { Game } from '../../types'
+import {
+  FilterAndSortListModel,
+  FilterAndSortOptionItemModel,
+  Game,
+} from '../../types'
 import { GameCard } from '../../components'
 import { styles } from './styles'
 
 export const MainScreen = (props: IProps) => {
-  const { navigation } = props
+  const { navigation, route } = props
   const [gamesList, setGamesList] = useState<Game[]>([])
-  const getGamesList = useCallback(async () => {
-    try {
-      const data = await fetchGamesList()
-      setGamesList(data)
-    } catch (error) {
-      Alert.alert('Something went wrong')
-    }
-  }, [])
+
+  const getGamesList = useCallback(
+    async (
+      selectedFilters?: FilterAndSortListModel,
+      selectedSortOption?: FilterAndSortOptionItemModel | null,
+    ) => {
+      try {
+        const data = await fetchGamesList(selectedFilters, selectedSortOption)
+        setGamesList(data)
+      } catch (error) {
+        Alert.alert('Something went wrong')
+      }
+    },
+    [],
+  )
 
   const renderRightHeaderButton = useCallback(() => {
-    const handleOnPress = () => navigation.navigate('filterAndSort')
+    const handleOnPress = () =>
+      navigation.navigate('filterAndSort', {
+        selectedFilters: route.params?.selectedFilters || [],
+        selectedSortOption: route.params?.selectedSortOption || null,
+      })
     return (
       <TouchableOpacity onPress={handleOnPress}>
         <Text style={styles.rightHeaderButton}>Filter & Sort</Text>
       </TouchableOpacity>
     )
-  }, [navigation])
+  }, [navigation, route.params])
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: renderRightHeaderButton,
     })
-    getGamesList()
-  }, [navigation, renderRightHeaderButton, getGamesList])
+    getGamesList(
+      route.params?.selectedFilters,
+      route.params?.selectedSortOption,
+    )
+  }, [navigation, renderRightHeaderButton, getGamesList, route.params])
 
   const renderGame: ListRenderItem<Game> = ({ item }) => {
     return (
