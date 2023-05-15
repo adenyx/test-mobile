@@ -30,6 +30,7 @@ export const MainScreen = (_props: IProps) => {
         thumbnail={item.thumbnail}
         platform={item.platform}
         genre={item.genre}
+        description={item.short_description}
       />
     )
   }

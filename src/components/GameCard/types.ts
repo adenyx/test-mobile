@@ -5,4 +5,5 @@ export interface GameCardProps {
   genre: string
   thumbnail: string
   developer?: string
+  description?: string
 }
