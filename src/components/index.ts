@@ -1,2 +1,1 @@
-export * from './GameCard'
-export * from './Radio'
+export {}
