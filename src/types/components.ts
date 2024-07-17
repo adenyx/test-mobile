@@ -6,3 +6,4 @@ export type TIconName =
   | 'cart'
   | 'favorites'
   | 'home'
+  | 'profile-user'
