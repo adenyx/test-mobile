@@ -24,6 +24,20 @@ export const RootNavigator = () => {
           }}
           component={FilterAndSortScreen}
         />
+        <Stack.Screen
+          name="filterAndSort"
+          options={{
+            title: 'Filter and Sort',
+          }}
+          component={FilterAndSortScreen}
+        />
+        <Stack.Screen
+          name="filterAndSort"
+          options={{
+            title: 'Filter and Sort',
+          }}
+          component={FilterAndSortScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
