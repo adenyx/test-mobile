@@ -2,7 +2,7 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { RootNavigatorParamsList } from '../types'
 import { NavigationContainer } from '@react-navigation/native'
-import { HomeScreen } from '../screens'
+import { TabNavigator } from '../navigation'
 
 const Stack = createNativeStackNavigator<RootNavigatorParamsList>()
 
@@ -11,11 +11,11 @@ export const RootNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="home"
+          name="bottomTab"
           options={{
-            title: 'Home Page',
+            headerShown: false,
           }}
-          component={HomeScreen}
+          component={TabNavigator}
         />
       </Stack.Navigator>
     </NavigationContainer>
